@@ -1,0 +1,28 @@
+version: '3'
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  worker: &worker
+    build: worker
+    entrypoint: bundle exec ruby worker.rb
+    depends_on:
+      - redis
+    volumes:
+      - ./worker:/app
+      - gems:/gems
+    environment:
+      REDIS_URL: redis://redis:6379
+
+  find:
+    <<: *worker
+    entrypoint: bundle exec ruby find.rb
+
+  add_show:
+    <<: *worker
+    entrypoint: bundle exec ruby add_show.rb
+
+volumes:
+  gems:

@@ -1,0 +1,100 @@
+query media($id: Int, $type: MediaType, $isAdult: Boolean) {
+  Media(id: $id, type: $type, isAdult: $isAdult) {
+    id
+    title {
+      userPreferred
+      romaji
+      english
+      native
+    }
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
+    season
+    seasonYear
+    status(version: 2)
+    episodes
+    nextAiringEpisode {
+      airingAt
+      timeUntilAiring
+      episode
+    }
+    relations {
+      edges {
+        id
+        relationType(version: 2)
+        node {
+          id
+          title {
+            userPreferred
+          }
+          format
+          type
+          status(version: 2)
+          bannerImage
+          coverImage {
+            large
+          }
+        }
+      }
+    }
+    characterPreview: characters(perPage: 6, sort: [ROLE, RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        name
+        voiceActors(language: JAPANESE, sort: [RELEVANCE, ID]) {
+          id
+          name {
+            userPreferred
+          }
+          language: languageV2
+          image {
+            large
+          }
+        }
+        node {
+          id
+          name {
+            userPreferred
+          }
+          image {
+            large
+          }
+        }
+      }
+    }
+    staffPreview: staff(perPage: 8, sort: [RELEVANCE, ID]) {
+      edges {
+        id
+        role
+        node {
+          id
+          name {
+            userPreferred
+          }
+          language: languageV2
+          image {
+            large
+          }
+        }
+      }
+    }
+    studios {
+      edges {
+        isMain
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+}
