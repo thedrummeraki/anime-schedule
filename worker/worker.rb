@@ -11,12 +11,3 @@ $redis.keys("show:*").each do |key|
 
   add_show_to_calendar_if_absent(show_id, calendar)
 end
-
-# shows = query_shows_airing_now
-# shows.each do |show|
-#   value = $redis.get("show:#{show["id"]}")
-#   if show["nextAiringEpisode"] && value
-#     title = show["title"]["english"] || show["title"]["native"]
-#     puts "[#{value ? "✅" : "❌"}] [#{show["id"]}] Episode #{show["nextAiringEpisode"]["episode"]} - #{title}"
-#   end
-# end
