@@ -24,5 +24,11 @@ services:
     <<: *worker
     entrypoint: bundle exec ruby add_show.rb
 
+  auth:
+    <<: *worker
+    entrypoint: bundle exec puma
+    ports:
+      - 9292:9292
+
 volumes:
   gems:
